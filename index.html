@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Book: Solidaritas dalam Perspektif Hadits Tematik</title>
+    <style>
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+
+        body { 
+            display: flex; 
+            height: 100vh; 
+            background-color: #0a0f1d; 
+            overflow: hidden; 
+        }
+
+        /* --- TOMBOL HAMBURGER --- */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background-color: #0d1b2a;
+            color: #00f2fe;
+            border: 1px solid #00f2fe;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        /* --- SIDEBAR MENU --- */
+        .sidebar {
+            width: 300px;
+            background-color: #0d1b2a; 
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            z-index: 1500;
+            border-right: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+            background-color: #ffffff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 110px;
+        }
+
+        .sidebar-header iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: hidden;
+        }
+
+        .menu-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 0;
+        }
+
+        .menu-item {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: #abc4ff; 
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(90deg, #1b263b 0%, #415a77 100%);
+            color: #00f2fe; 
+            border-left: 3px solid #00f2fe;
+        }
+
+        .dropdown-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-btn::after {
+            content: '▼';
+            font-size: 10px;
+            color: #415a77;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-btn.active::after {
+            transform: rotate(-180deg);
+            color: #00f2fe;
+        }
+
+        .sub-menu {
+            display: none;
+            background-color: #0b132b; 
+        }
+
+        .sub-menu .menu-item {
+            padding-left: 35px;
+            font-size: 13px;
+            border-bottom: none;
+        }
+
+        /* --- KONTEN UTAMA --- */
+        .main-content {
+            flex: 1;
+            height: 100%;
+            background-color: #0a0f1d;
+        }
+
+        .main-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .sidebar { position: fixed; left: -300px; top: 0; bottom: 0; width: 280px; }
+            .sidebar.active { left: 0; }
+            .main-content { padding-top: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <iframe src="logo_widina.html" scrolling="no"></iframe>
+        </div>
+        
+        <div class="menu-container">
+            <a href="Cover.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Home</a>
+            <a href="kata_pengantar.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Kata Pengantar</a>
+
+            <button class="menu-item dropdown-btn" onclick="toggleDropdown(this)">BAB I</button>
+            <div class="sub-menu">
+                <a href="bab1_a.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">A. Pengertian Solidaritas dalam Islam</a>
+                <a href="bab1_b.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">B. Bentuk Solidaritas dalam Hadits</a>
+                <a href="bab1_c.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">C. Dampak Sosial & Spiritualitas</a>
+            </div>
+
+            <button class="menu-item dropdown-btn" onclick="toggleDropdown(this)">BAB II</button>
+            <div class="sub-menu">
+                <a href="bab2_a.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Hubungan Bertetangga</a>
+                <a href="bab2_b.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Ikatan Kekeluargaan</a>
+                <a href="bab2_c.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Menghadapi Kesulitan</a>
+            </div>
+
+            <a href="bab3.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">BAB III: Penutup</a>
+            <a href="daftar_pustaka.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Daftar Pustaka</a>
+            <a href="profil.html" target="content-frame" class="menu-item" onclick="closeSidebarOnMobile()">Penulis</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Fitur Otomatis: Menambahkan 'onload="styleIframe()"' agar menyuntikkan warna secara paksa ke dalam bab -->
+        <iframe src="Cover.html" name="content-frame" id="content-frame" class="main-iframe" onload="styleIframe()"></iframe>
+    </main>
+
+    <script>
+        function toggleDropdown(button) {
+            button.classList.toggle("active");
+            var subMenu = button.nextElementSibling;
+            subMenu.style.display = (subMenu.style.display === "block") ? "none" : "block";
+        }
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById("sidebar").classList.remove("active");
+            }
+        }
+
+        /* KODE PINTAR: Mengubah tampilan teks bab lama Anda menjadi terang secara otomatis */
+        function styleIframe() {
+            try {
+                var iframe = document.getElementById('content-frame');
+                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Jangan ubah warna halaman Cover murni SVG
+                if (iframe.contentWindow.location.href.includes("Cover.html")) return;
+
+                // Suntikkan gaya tulisan terang ke teks bab asli Anda
+                var style = iframeDoc.createElement('style');
+                style.innerHTML = `
+                    body { background-color: #0a0f1d !important; color: #ffffff !important; }
+                    h1, h2, h2 span { color: #00f2fe !important; }
+                    h3, h4 { color: #4cc9f0 !important; }
+                    p, li, span, div, td { color: #e0e6ed !important; }
+                `;
+                iframeDoc.head.appendChild(style);
+            } catch(e) {
+                console.log("Membuka halaman eksternal atau lokal berbeda");
+            }
+        }
+    </script>
+
+</body>
+</html>
